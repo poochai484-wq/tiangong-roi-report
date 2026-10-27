@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天工项目 ROI 核算 — 一页纸汇报</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Inter","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;background:#f4f6f9;color:#2e3856;line-height:1.6;-webkit-font-smoothing:antialiased;padding:36px 0}
+.slide{max-width:1150px;margin:0 auto 36px;background:#fff;border-radius:20px;box-shadow:0 1px 3px rgba(0,0,0,.04),0 8px 40px rgba(0,0,0,.06);overflow:hidden;border:1px solid #eef0f5}
+.hd{background:linear-gradient(135deg,#172b4d,#2654a0);color:#fff;padding:30px 48px;display:flex;align-items:baseline;gap:20px}
+.hd h1{font-size:30px;font-weight:700;letter-spacing:4px}
+.hd .sub{font-size:14px;opacity:.75;letter-spacing:1px}
+.hd .meta{margin-left:auto;font-size:12px;opacity:.55}
+.body{padding:36px 48px 40px}
+.sec-t{font-size:13px;font-weight:700;color:#2654a0;letter-spacing:2px;margin:26px 0 12px;display:flex;align-items:center;gap:8px}
+.sec-t::before{content:'';width:4px;height:16px;background:#2654a0;border-radius:2px}
+.sec-t:first-child{margin-top:0}
+
+/* 核心结论 */
+.core{background:linear-gradient(135deg,#eaf0fa,#d6e4f0);border-left:5px solid #2654a0;border-radius:10px;padding:18px 26px;font-size:15.5px;color:#1a3a5c;line-height:1.85}
+.core b{color:#172b4d}
+
+/* 三本账 */
+.led{display:flex;gap:16px;margin:14px 0}
+.led-c{flex:1;border-radius:12px;padding:16px 18px;border:1.5px solid #e8ecf3;background:#fff}
+.led-c .tag{display:inline-block;font-size:11px;font-weight:700;border-radius:6px;padding:3px 10px;margin-bottom:8px}
+.led-c h5{font-size:15px;font-weight:700;margin-bottom:6px}
+.led-c p{font-size:12px;color:#555;line-height:1.65}
+.led-c .verdict{margin-top:10px;font-size:12px;font-weight:700;border-radius:6px;padding:6px 10px;display:inline-block}
+.la{background:#fff8f0;border-color:#f0c878}.la .tag{background:#fdebc8;color:#8b5e14}.la .verdict{background:#fef5e8;color:#8b5e14}
+.lb{background:#f6fdf9;border-color:#8cc9a0}.lb .tag{background:#d4f0dc;color:#1a6e3e}.lb .verdict{background:#eafaf1;color:#1a6e3e}
+.lc{background:#f5f7fd;border-color:#b8c8e8}.lc .tag{background:#dce6f8;color:#2654a0}.lc .verdict{background:#e4ecf8;color:#2654a0}
+
+/* 数字 tiles */
+.tiles{display:flex;gap:14px;margin:14px 0}
+.tile{flex:1;background:#fff;border:1.5px solid #e8ecf3;border-radius:12px;padding:16px 12px;text-align:center}
+.tile .v{font-size:26px;font-weight:700;color:#2654a0;line-height:1.2}
+.tile .k{font-size:11.5px;color:#6b7fa0;margin-top:6px;line-height:1.5}
+.tile .note{font-size:10px;color:#a0a8b8;margin-top:4px}
+
+/* 团队步骤表 */
+.stb{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;border-radius:10px;overflow:hidden;border:1px solid #e8ecf3}
+.stb th{background:#2654a0;color:#fff;padding:9px 12px;text-align:left;font-weight:600;font-size:12px}
+.stb td{padding:8px 12px;border-bottom:1px solid #f0f2f5;background:#fff;vertical-align:middle}
+.stb tr:last-child td{border-bottom:none}
+.stb .tm{font-weight:700;color:#172b4d;white-space:nowrap}
+.stb .old{color:#c0392b}
+.stb .new{color:#1a8c3f;font-weight:600}
+.stb .arrow{color:#c8cdd6;text-align:center;white-space:nowrap}
+.chip{display:inline-block;background:#eafaf1;color:#1a8c3f;border-radius:5px;padding:2px 8px;font-size:10.5px;font-weight:600;margin-left:6px}
+
+/* 兜底 */
+.dun{background:linear-gradient(135deg,#fff5f5,#fdf0f0);border:1.5px solid #e8b0b0;border-radius:12px;padding:16px 22px;margin:14px 0}
+.dun .row{display:flex;gap:12px;align-items:center;font-size:12.5px;margin:6px 0}
+.dun .n{font-weight:700;color:#c0392b;min-width:70px}
+.dun .txt{color:#555;flex:1}
+.dun .op{font-weight:700;color:#1a6e3e;white-space:nowrap}
+
+/* 要什么 */
+.ask{background:linear-gradient(135deg,#172b4d,#2654a0);border-radius:12px;padding:22px 28px;color:#fff;margin-top:20px}
+.ask h5{font-size:15px;font-weight:700;letter-spacing:2px;margin-bottom:12px;opacity:.9}
+.ask .items{display:flex;gap:14px}
+.ask .it{flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:10px;padding:14px 16px;font-size:12.5px;line-height:1.65}
+.ask .it b{display:block;font-size:13.5px;margin-bottom:5px}
+.footer{background:#172b4d;color:rgba(255,255,255,.55);text-align:center;padding:18px;font-size:12px;letter-spacing:.5px}
+</style>
+</head>
+<body>
+
+<div class="slide">
+<div class="hd">
+  <h1>天工项目 · ROI 核算</h1>
+  <div class="sub">一页纸汇报 — 怎么算、算什么、要什么</div>
+  <div class="meta">2026-10 · 客服中心</div>
+</div>
+<div class="body">
+
+<div class="sec-t">一、核心结论（先说清楚归因）</div>
+<div class="core">
+  退费流程合理化带来的「一线增 3 人」，是<b>业务决策的代价，不是天工导致的</b>——没有天工它照样发生、且必须真金白银付。<br>
+  天工做的是两件事：<b>① 兜住代价</b>（AI 虚拟团队接走一线不该背的量，这 3 个人力不用花）；<b>② 在新流程上提效</b>（7 个团队全面缩减处理环节）。<br>
+  ROI 只算天工的增量贡献，账目分开记、不抢功——以下数字全部按此口径。
+</div>
+
+<div class="sec-t">二、三本账：哪些算天工的、哪些不算</div>
+<div class="led">
+  <div class="led-c la">
+    <div class="tag">账本 A · 流程合理化</div>
+    <h5>业务决策，没天工也发生</h5>
+    <p>职责边界重划（高期望客诉由一线承接）：一线 +3 人、二线 -2 人、站内投诉率 18.89%→8.87%、日均少转二线 475 例。</p>
+    <div class="verdict">✘ 不计入天工 ROI</div>
+  </div>
+  <div class="led-c lb">
+    <div class="tag">账本 B · 天工提效</div>
+    <h5>Skill 底座的真正收益</h5>
+    <p>一线少跨 4 个系统、少翻 6 章知识；二线不再重复核对；业管单点维护；质检走向全量；培训 1-2 周上岗；系统规划不再重复开发。</p>
+    <div class="verdict">✔ 计入天工 ROI</div>
+  </div>
+  <div class="led-c lc">
+    <div class="tag">账本 C · 天工兜底</div>
+    <h5>让流程重构「不用付出代价」</h5>
+    <p>一线多出的 475 例/日，用 AI 虚拟团队 + 自动化接走（424 例「不可退+解释」规则明确，最适合自动化闭环）。</p>
+    <div class="verdict">✔ 计入（成本抵消项）</div>
+  </div>
+</div>
+
+<div class="sec-t">三、效果预估 · 天工的收益点（影响明确，数据下一步与各团队确认）</div>
+<table class="stb">
+  <tr><th style="width:22%">收益点</th><th style="width:44%">直白影响（省什么、少干什么）</th><th style="width:12%">类型</th><th style="width:22%">下一步谁给数据</th></tr>
+  <tr><td class="tm">🎧 一线 · 单均处理提效</td><td>一通退费从「跨 4 个系统核对 + 翻 6 章知识 + 逐条判断 + 手写转单」变成「Skill 直接出结论」，单均处理时长明显下降</td><td><span class="chip">省时</span></td><td>一线团队抽样环节耗时</td></tr>
+  <tr><td class="tm">🔧 二线 · 单均工单提效</td><td>结构化工单直接判断，不再追问一线、不再重查知识节点，单均工单耗时下降</td><td><span class="chip">省时</span></td><td>二线团队抽样环节耗时</td></tr>
+  <tr><td class="tm">📋 业管 · 维护瘦身</td><td>知识维护从「6 章正文 + 多张表 + 穷举名单、人机两套」收敛为 1 份 Skill，变更、清洗、同步的活大幅减少</td><td><span class="chip">省时</span></td><td>业管提供维护点位与变更耗时</td></tr>
+  <tr><td class="tm">🔍 质检 · 提效 + 走向全量</td><td>逐条肉眼比对变成 Skill 定位核验，单条质检变快；判定条件全部可核验，抽样质检可走向全量</td><td><span class="chip">省时</span><span class="chip">降错</span></td><td>质检提供单条耗时与抽样率</td></tr>
+  <tr><td class="tm">📚 培训 · 上手变快</td><td>新人 1-2 周上岗，课件不用追着业务改</td><td><span class="chip">省时</span></td><td>培训提供上手周期与课件工时</td></tr>
+  <tr><td class="tm">🤖 智能客服 · 少转人工</td><td>10 类订单的复杂判断从「答不了只能转人工」变成「按 Skill 可答」，转人工下降、自助解决率提升</td><td><span class="chip">省钱</span></td><td>产品提供自助率与转人工量</td></tr>
+  <tr><td class="tm">⚙️ 系统规划 · 不重复开发</td><td>涉退费的需求不再每个都重写一遍判定逻辑，业务变更只改一处</td><td><span class="chip">省时</span></td><td>系统规划提供需求人天</td></tr>
+  <tr><td class="tm">🛡️ 质量 · 出错变少</td><td>判定标准统一，因人业务不熟导致的退错、漏退、客诉下降</td><td><span class="chip">降错</span></td><td>质检提供差错率与赔付成本</td></tr>
+  <tr><td class="tm">📋 业管 · 会议沟通减少</td><td>流程沟通会、案例会不用反复开——一份 Skill 统一判定标准，各角色结论一致，争议 case 和口径对齐的需求大幅减少</td><td><span class="chip">省时</span></td><td>业管提供会议频次与时长</td></tr>
+  <tr><td class="tm">🔍 质检/业管 · 检查负担减少</td><td>内部质检、业务检查的时间下降——标准统一、处理结果结构化，出错点收敛，检查更聚焦</td><td><span class="chip">省时</span></td><td>质检提供检查耗时</td></tr>
+  <tr><td class="tm">🤖 账本 C · 人力兜底</td><td>一线多出的 475 例/日由 AI 虚拟团队接走（其中 424 例是「不可退+解释」，最适合自动闭环），3 个人力不用真加</td><td><span class="chip">省人力</span></td><td>项目组评估自动化率</td></tr>
+</table>
+
+<div class="sec-t">四、已经验证的事实（收益的可信基础）</div>
+<div class="tiles">
+  <div class="tile"><div class="v">95.04%</div><div class="k">判定维度一致率</div><div class="note">326/343，与线上基本无差异</div></div>
+  <div class="tile"><div class="v">3 人</div><div class="k">AI 兜底省下的人力</div><div class="note">没有天工必须真实增加</div></div>
+  <div class="tile"><div class="v">19,073</div><div class="k">退费月量级（提效基数）</div><div class="note">首期核算对象</div></div>
+  <div class="tile"><div class="v">+1,953</div><div class="k">开票/故障月量级（复用）</div><div class="note">同一模板直接复制</div></div>
+</div>
+
+<div class="sec-t">五、这些收益怎么变成数字（下一步）</div>
+<div class="core" style="border-left-color:#1a6e3e;background:linear-gradient(135deg,#f0faf4,#e4f5ea);font-size:13.5px">
+  上表每一条收益点，<b>影响是明确的，但还没有数据——这正是下一步要做的事</b>：按统一模板跟 7 个团队逐一确认，各团队抽样实测环节耗时、自己填数、自己签字认账，交叉评审后汇总，试点 3 个月再用真实数据校准。<br>
+  不拍脑袋、不给单点数字：只报<b>保守档</b>作为对外承诺，乐观档作为天花板。每一分收益都标注「估算来由」，可追溯到对应团队的采集表——<b>谁填的数字，谁认账。</b>
+</div>
+
+<div class="ask">
+  <h5>六、决策请求（三件事）</h5>
+  <div class="items">
+    <div class="it"><b>1. 认可核算口径</b>三本账归因 + 统一参数（工时单价、量级基数）——口径对齐会上拍板，不陷入数字争论</div>
+    <div class="it"><b>2. 支持向各团队拿数据</b>上表收益点的数据需 7 个团队配合提供，请管理层推动限期填报（D+3~D+18）、交叉评审、签字认账</div>
+    <div class="it"><b>3. 批准试点启动</b>退费 Skill 先行试点，跑通「AI 兜底 + 各团队提效」，模板直接复制到开票、故障</div>
+  </div>
+</div>
+
+</div>
+<div class="footer">天工项目 · ROI 核算一页纸 · 流程合理化的代价不由天工承担，天工负责让它不发生 + 在新流程上持续提效 · 2026-10</div>
+</div>
+
+</body>
+</html>
